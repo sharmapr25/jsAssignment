@@ -1,0 +1,25 @@
+{
+  "name": "tdd_js_assignment",
+  "version": "1.0.0",
+  "description": "This is a repo for js assignment for learning writing tdd with oops concept.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharmapr25/jsAssignment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sharmapr25/jsAssignment/issues"
+  },
+  "homepage": "https://github.com/sharmapr25/jsAssignment#readme",
+  "devDependencies": {
+    "jest": "^27.0.6"
+  }
+}
