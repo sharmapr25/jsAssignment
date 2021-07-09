@@ -8,6 +8,10 @@ class Rectangle{
     return this.width * this.length;
   };
 
+  perimeter(){
+    return 2 * ( this.width + this.length );
+  };
+
 };
 
 module.exports = Rectangle;
