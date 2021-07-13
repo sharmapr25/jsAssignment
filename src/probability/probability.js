@@ -12,6 +12,9 @@ class Probability{
 
   compare(anotherProbability){
     const ratioDifference = this.ratio - anotherProbability.ratio;
+    if(ratioDifference == 0 ){
+      return 0;
+    }
     return (ratioDifference/Math.abs(ratioDifference));
   }
 };
