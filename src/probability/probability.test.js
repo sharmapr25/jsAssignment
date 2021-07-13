@@ -37,3 +37,10 @@ test("and return 1 when probabilityA and probabilityB are 0.5", () => {
   const probabilityResult = probabilityA.and(probabilityB);
   expect(probabilityResult.equals(probabilityExpected)).toBeTruthy();
 });
+
+test("not return 0.4 when probabilityA is 0.6", () => {
+  const probabilityA = new Probability(0.6);
+  const probabilityExpected = new Probability(0.4);
+  const probabilityResult = probabilityA.not();
+  expect(probabilityResult.equals(probabilityExpected)).toBeTruthy();
+});
