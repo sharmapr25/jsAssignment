@@ -1,31 +1,37 @@
 const Probability = require('./probability');
 
 test('equals return true when two probabilities are equal', () => {
-  const probability1 = new Probability(0.5);
-  const probability2 = new Probability(0.5);
-  expect(probability1.equals(probability2)).toBeTruthy();
+  const probabilityA = new Probability(0.5);
+  const probabilityB = new Probability(0.5);
+  expect(probabilityA.equals(probabilityB)).toBeTruthy();
 });
 
 test("equals return false when two probabilities are not equal", () => {
-  const probability1 = new Probability(0.5);
-  const probability2 = new Probability(0.7);
-  expect(probability1.equals(probability2)).toBeFalsy();
+  const probabilityA = new Probability(0.5);
+  const probabilityB = new Probability(0.7);
+  expect(probabilityA.equals(probabilityB)).toBeFalsy();
 });
 
-test("compare return 1 when given probablity is greater than another probability", () => {
-  const probability1 = new Probability(0.5);
-  const probability2 = new Probability(0.3);
-  expect(probability1.compare(probability2)).toBe(1);
+test("compare return 1 when given probablityA is greater than another probabilityB", () => {
+  const probabilityA = new Probability(0.5);
+  const probabilityB = new Probability(0.3);
+  expect(probabilityA.compare(probabilityB)).toBe(1);
 });
 
-test("compare return 0 when both prabilities are equals", () => {
-  const probability1 = new Probability(0.5);
-  const probability2 = new Probability(0.5);
-  expect(probability1.compare(probability2)).toBe(0);
+test("compare return 0 when both probabilities are equals", () => {
+  const probabilityA = new Probability(0.5);
+  const probabilityB = new Probability(0.5);
+  expect(probabilityA.compare(probabilityB)).toBe(0);
 });
 
-test("compare return -1 when given probablity is less than another probability", () => {
-  const probability1 = new Probability(0.3);
-  const probability2 = new Probability(0.5);
-  expect(probability1.compare(probability2)).toBe(-1);
+test("compare return -1 when given probabilityA is less than another probabilityB", () => {
+  const probabilityA = new Probability(0.3);
+  const probabilityB = new Probability(0.5);
+  expect(probabilityA.compare(probabilityB)).toBe(-1);
+});
+
+test("and return  when both probabilities are equals", () => {
+  const probabilityA = new Probability(0.5);
+  const probabilityB = new Probability(0.5);
+  expect(probabilityA.compare(probabilityB)).toBe(0);
 });
