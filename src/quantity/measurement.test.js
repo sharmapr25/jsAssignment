@@ -29,4 +29,12 @@ test("equals return false when 2000 meter is not equal to 1 kilometer", () => {
   expect(twoThousandMeter.equals(oneKiloMeter)).toBeFalsy();
 });
 
+test("equals return true when 1000 gram is equal to 1 kilogram", () => {
+  const thousandGram = new Measurement(1000, Unit.G);
+  const oneKiloGram = new Measurement(1, Unit.KG);
+
+  expect(thousandGram.equals(oneKiloGram)).toBeTruthy();
+});
+
+
 
