@@ -30,8 +30,10 @@ test("compare return -1 when given probabilityA is less than another probability
   expect(probabilityA.compare(probabilityB)).toBe(-1);
 });
 
-test("and return  when both probabilities are equals", () => {
+test("and return 1 when probabilityA and probabilityB are 0.5", () => {
   const probabilityA = new Probability(0.5);
   const probabilityB = new Probability(0.5);
-  expect(probabilityA.compare(probabilityB)).toBe(0);
+  const probabilityExpected = new Probability(1);
+  const probabilityResult = probabilityA.and(probabilityB);
+  expect(probabilityResult.equals(probabilityExpected)).toBeTruthy();
 });

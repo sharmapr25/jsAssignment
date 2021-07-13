@@ -16,6 +16,10 @@ class Probability{
       return 0;
     }
     return (ratioDifference/Math.abs(ratioDifference));
+  };
+
+  and(nextProbability){
+    return new Probability(this.ratio + nextProbability.ratio);
   }
 };
 
