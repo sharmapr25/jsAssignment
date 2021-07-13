@@ -5,7 +5,10 @@ class Measurement{
   };
 
   equals(anotherMeasurement){
-    return anotherMeasurement.value === ((anotherMeasurement.unit * this.value)/this.unit);
+    if(this.unit.isSameUnitType(anotherMeasurement.unit)){
+    return anotherMeasurement.value === ((anotherMeasurement.unit.value * this.value)/this.unit.value);
+    }
+    return false;
   };
 };
 

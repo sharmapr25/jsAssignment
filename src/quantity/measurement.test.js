@@ -36,5 +36,12 @@ test("equals return true when 1000 gram is equal to 1 kilogram", () => {
   expect(thousandGram.equals(oneKiloGram)).toBeTruthy();
 });
 
+test("equals return false when compare 1 gram equal 1 centimeter", () => {
+  const oneGram = new Measurement(1, Unit.G);
+  const oneCentimeter = new Measurement(1, Unit.CM);
+
+  expect(oneGram.equals(oneCentimeter)).toBeFalsy();
+});
+
 
 
