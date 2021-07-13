@@ -18,12 +18,16 @@ class Probability {
     return ratioDifference / Math.abs(ratioDifference);
   }
 
-  and(nextProbability) {
-    return new Probability(this.ratio + nextProbability.ratio);
+  and(anotherProbability) {
+    return new Probability(this.ratio * anotherProbability.ratio);
   }
 
   not(){
     return new Probability(1 - this.ratio);
+  }
+
+  or(anotherProbability){
+    return new Probability(this.ratio + anotherProbability.ratio);
   }
 };
 
