@@ -4,9 +4,9 @@ class Measurement{
     this.unit = unit;
   };
 
-  equals(){
-    return true;
-  }
+  equals(anotherMeasurement){
+    return anotherMeasurement.value === ((anotherMeasurement.unit * this.value)/this.unit);
+  };
 };
 
 module.exports = Measurement;
