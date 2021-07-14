@@ -1,19 +1,27 @@
-const CarIsAlreadyParkedError = require("./carIsAlreadyParkedError");
+const CarIsAlreadyParkedError = require("./error/carIsAlreadyParkedError");
+const carIsNotParkedError = require("./error/carIsNotParkedError");
 
 class ParkingLot{
   constructor(parkingSize){
     this.parkingSpace = new Array(parkingSize);
   }
-  park(vehicle){
-    if(this.isParked(vehicle)){
+  park(car){
+    if(this.isParked(car)){
       throw new CarIsAlreadyParkedError();
     }
-    this.parkingSpace.push(vehicle);
+    this.parkingSpace.push(car);
   };
 
-  isParked(vehicleToFind){
-    return this.parkingSpace.find(vehicle => {
-      return JSON.stringify(vehicle) === JSON.stringify(vehicleToFind);
+  unpark(carToUnpark){
+    if(!this.isParked(carToUnpark)){
+      throw new carIsNotParkedError();
+    }
+    this.parkingSpace = this.parkingSpace.filter(car => JSON.stringify(car) !== JSON.stringify(carToUnpark));
+  }
+
+  isParked(carToFind){
+    return this.parkingSpace.find(car => {
+      return JSON.stringify(car) === JSON.stringify(carToFind);
     });
   };
 
