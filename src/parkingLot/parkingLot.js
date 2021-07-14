@@ -1,10 +1,15 @@
 class ParkingLot{
+  constructor(parkingSize){
+    this.parkingSpace = new Array(parkingSize);
+  }
   park(vehicle){
-
+    this.parkingSpace.push(vehicle);
   };
 
-  isParked(){
-    return true;
+  isParked(vehicleToFind){
+    return this.parkingSpace.find(vehicle => {
+      return JSON.stringify(vehicle) === JSON.stringify(vehicleToFind);
+    });
   };
 
 };
