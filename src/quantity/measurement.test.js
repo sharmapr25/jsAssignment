@@ -53,6 +53,15 @@ test("add return 200 centimeters when add 100 centimeters with 1 meter", () => {
   expect(result.equals(twoHundredCentimeters)).toBeTruthy();
 });
 
+test("subtract return 0.99 kilograms when subtract 1 kilogram with 100 grams", () => {
+  const oneKiloGram = new Measurement(1, Unit.KG);
+  const hundredGrams = new Measurement(100, Unit.G);
+
+  const zeroPointNintyNineKiloGrams = new Measurement(0.99, Unit.KG);
+  const result = oneKiloGram.subtract(hundredGrams);
+
+  expect(result.equals(zeroPointNintyNineKiloGrams)).toBeTruthy();
+});
 
 
 
