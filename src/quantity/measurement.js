@@ -10,6 +10,12 @@ class Measurement{
     }
     return false;
   };
+
+  add(anotherMeasurement){
+    const total = this.value + anotherMeasurement.unit.convertTo(anotherMeasurement.value, this.unit);
+
+    return new Measurement(total, this.unit);
+  };
 };
 
 module.exports = Measurement;
