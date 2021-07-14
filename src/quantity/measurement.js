@@ -6,7 +6,7 @@ class Measurement{
 
   equals(anotherMeasurement){
     if(this.unit.isSameUnitType(anotherMeasurement.unit)){
-    return anotherMeasurement.value === ((anotherMeasurement.unit.value * this.value)/this.unit.value);
+      return this.value === anotherMeasurement.unit.convertTo(anotherMeasurement.value, this.unit);
     }
     return false;
   };

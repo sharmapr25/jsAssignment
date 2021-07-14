@@ -6,7 +6,11 @@ class Unit{
 
   isSameUnitType(anotherUnit){
     return this.unitType === anotherUnit.unitType;
-  }
+  };
+
+  convertTo(value, anotherUnit){
+    return Math.round((anotherUnit.value * value)/this.value);
+  };
 
 };
 
