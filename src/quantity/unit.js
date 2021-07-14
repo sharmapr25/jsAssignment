@@ -1,14 +1,15 @@
+const InvalidUnitConversionError = require('./invalidUnitConversionError');
+
 class Unit{
   constructor(value, unitType){
     this.value = value;
     this.unitType = unitType;
   };
-
-  isSameUnitType(anotherUnit){
-    return this.unitType === anotherUnit.unitType;
-  };
-
+  
   convertTo(value, anotherUnit){
+    if(this.unitType !== anotherUnit.unitType){
+      throw new InvalidUnitConversionError();
+    }
     return Math.round((anotherUnit.value * value)/this.value);
   };
 
