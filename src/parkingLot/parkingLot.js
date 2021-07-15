@@ -3,13 +3,24 @@ const carIsNotParkedError = require("./error/carIsNotParkedError");
 
 class ParkingLot{
   constructor(parkingSize){
-    this.parkingSpace = new Array(parkingSize);
-  }
+    this.parkingSize = parkingSize;
+    this.parkingSpace = [];
+  };
+
+  addOwner(owner){
+    this.owner = owner;
+  };
+
   park(car){
     if(this.isParked(car)){
       throw new CarIsAlreadyParkedError();
     }
-    this.parkingSpace.push(car);
+    if(this._isSpaceAvailable()){
+      this.parkingSpace.push(car);
+    }
+    if (!this._isSpaceAvailable()) {
+      this.owner?.notifyWhenSpaceNotAvailable();
+    }
   };
 
   unpark(carToUnpark){
@@ -24,6 +35,10 @@ class ParkingLot{
       return JSON.stringify(car) === JSON.stringify(carToFind);
     });
   };
+
+  _isSpaceAvailable(){
+    return this.parkingSize > this.parkingSpace.length;
+  }
 
 };
 
