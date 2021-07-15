@@ -1,72 +1,94 @@
 const ParkingLot = require('./parkingLot');
 const carIsAlreadyParkedError = require('./error/carIsAlreadyParkedError');
 const carIsNotParkedError = require("./error/carIsNotParkedError");
+const Observer = require('./observer');
 
-test('isParked return true when given car is parked in parking lot', () => {
-  const parkingLot = new ParkingLot(1);
-  const car = {'number': 112};
-  parkingLot.park(car);
+jest.mock('./observer');
 
-  expect(parkingLot.isParked(car)).toBeTruthy();
-});
+describe('parking lot', () => {
+  beforeAll(() => {
+    Observer.mockImplementation(() => {
+      return {
+        notifyWhenSpaceNotAvailable: jest.fn(),
+        notifyWhenSpaceIsAvailable: jest.fn()
+      };
+    });
+  });
 
-test("isParked return false when given car is not parked in parking lot", () => {
-  const parkingLot = new ParkingLot(1);
-  const car = { number: 112 };
+  it("isParked return true when given car is parked in parking lot", () => {
+    const parkingLot = new ParkingLot(1);
+    const car = { number: 112 };
+    parkingLot.park(car);
 
-  expect(parkingLot.isParked(car)).toBeFalsy();
-});
+    expect(parkingLot.isParked(car)).toBeTruthy();
+  });
 
-test("park throw carIsAlreadyParkedError when try to park already parked car in parking lot", () => {
-  const parkingLot = new ParkingLot(1);
-  const car = { number: 112 };
+  it("isParked return false when given car is not parked in parking lot", () => {
+    const parkingLot = new ParkingLot(1);
+    const car = { number: 112 };
 
-  parkingLot.park(car);
-  expect(() => parkingLot.park(car)).toThrow(carIsAlreadyParkedError);
-});
+    expect(parkingLot.isParked(car)).toBeFalsy();
+  });
 
-test("isParked return false when parked car is unpark from parking lot", () => {
-  const parkingLot = new ParkingLot(1);
-  const car = { number: 112 };
+  it("park throw carIsAlreadyParkedError when try to park already parked car in parking lot", () => {
+    const parkingLot = new ParkingLot(1);
+    const car = { number: 112 };
 
-  parkingLot.park(car);
-  parkingLot.unpark(car);
+    parkingLot.park(car);
+    expect(() => parkingLot.park(car)).toThrow(carIsAlreadyParkedError);
+  });
 
-  expect(parkingLot.isParked(car)).toBeFalsy();
-});
+  it("isParked return false when parked car is unpark from parking lot", () => {
+    const parkingLot = new ParkingLot(1);
+    const car = { number: 112 };
 
-test("unpark throw carIsNotParkedError when try to unpark a car that not available in parking lot", () => {
-  const parkingLot = new ParkingLot(1);
-  const car = { number: 112 };
+    parkingLot.park(car);
+    parkingLot.unpark(car);
 
-  expect(() => parkingLot.unpark(car)).toThrow(carIsNotParkedError);
-});
+    expect(parkingLot.isParked(car)).toBeFalsy();
+  });
 
-test('park notify owner for no space available when parking lot is full', () => {
-  const parkingLot = new ParkingLot(1);
-  const car = { number: 112 };
-  const owner = {notifyWhenSpaceNotAvailable: jest.fn()};
+  it("unpark throw carIsNotParkedError when try to unpark a car that not available in parking lot", () => {
+    const parkingLot = new ParkingLot(1);
+    const car = { number: 112 };
 
-  parkingLot.addOwner(owner);
-  parkingLot.park(car);
+    expect(() => parkingLot.unpark(car)).toThrow(carIsNotParkedError);
+  });
 
-  expect(owner.notifyWhenSpaceNotAvailable.mock.calls.length).toBe(1);
+  it("park notify owner for no space available when parking lot is full", () => {
+    const parkingLot = new ParkingLot(1);
+    const car = { number: 112 };
+    const owner = new Observer();
 
-});
+    parkingLot.addObserver(owner);
+    parkingLot.park(car);
 
-test("park notify owner for space is available in parking lot", () => {
-  const parkingLot = new ParkingLot(1);
-  const car = { number: 112 };
-  const owner = {
-    notifyWhenSpaceIsAvailable: jest.fn(),
-    notifyWhenSpaceNotAvailable: jest.fn(),
-  };
+    expect(owner.notifyWhenSpaceNotAvailable.mock.calls.length).toBe(1);
+  });
 
-  parkingLot.addOwner(owner);
-  parkingLot.park(car);
-  parkingLot.unpark(car);
+  it("park notify owner for space is available in parking lot", () => {
+    const parkingLot = new ParkingLot(1);
+    const car = { number: 112 };
+    const owner = new Observer();
 
-  expect(owner.notifyWhenSpaceIsAvailable.mock.calls.length).toBe(1);
+    parkingLot.addObserver(owner);
+    parkingLot.park(car);
+    parkingLot.unpark(car);
+
+    expect(owner.notifyWhenSpaceIsAvailable.mock.calls.length).toBe(1);
+  });
+
+  it("park notify traffic cop for no space available when parking lot is full", () => {
+    const parkingLot = new ParkingLot(1);
+    const car = { number: 112 };
+    const trafficCop = new Observer();
+
+    parkingLot.addObserver(trafficCop);
+    parkingLot.park(car);
+
+    expect(trafficCop.notifyWhenSpaceNotAvailable.mock.calls.length).toBe(1);
+  });
+
 });
 
 

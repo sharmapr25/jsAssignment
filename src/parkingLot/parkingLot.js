@@ -5,10 +5,11 @@ class ParkingLot{
   constructor(parkingSize){
     this.parkingSize = parkingSize;
     this.parkingSpace = [];
+    this.observers = [];
   };
 
-  addOwner(owner){
-    this.owner = owner;
+  addObserver(observer){
+    this.observers.push(observer);
   };
 
   park(car){
@@ -19,7 +20,7 @@ class ParkingLot{
       this.parkingSpace.push(car);
     }
     if (!this._isSpaceAvailable()) {
-      this.owner?.notifyWhenSpaceNotAvailable();
+      this.observers.forEach((observer) => observer.notifyWhenSpaceNotAvailable());
     }
   };
 
@@ -28,7 +29,7 @@ class ParkingLot{
       throw new carIsNotParkedError();
     }
     if(!this._isSpaceAvailable()){
-      this.owner?.notifyWhenSpaceIsAvailable();
+      this.observers.forEach((observer) => observer.notifyWhenSpaceIsAvailable());
     }
     this.parkingSpace = this.parkingSpace.filter(car => JSON.stringify(car) !== JSON.stringify(carToUnpark));
   }
