@@ -52,7 +52,21 @@ test('park notify owner for no space available when parking lot is full', () => 
 
   expect(owner.notifyWhenSpaceNotAvailable.mock.calls.length).toBe(1);
 
+});
 
+test("park notify owner for space is available in parking lot", () => {
+  const parkingLot = new ParkingLot(1);
+  const car = { number: 112 };
+  const owner = {
+    notifyWhenSpaceIsAvailable: jest.fn(),
+    notifyWhenSpaceNotAvailable: jest.fn(),
+  };
+
+  parkingLot.addOwner(owner);
+  parkingLot.park(car);
+  parkingLot.unpark(car);
+
+  expect(owner.notifyWhenSpaceIsAvailable.mock.calls.length).toBe(1);
 });
 
 

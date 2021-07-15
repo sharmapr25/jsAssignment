@@ -27,6 +27,9 @@ class ParkingLot{
     if(!this.isParked(carToUnpark)){
       throw new carIsNotParkedError();
     }
+    if(!this._isSpaceAvailable()){
+      this.owner?.notifyWhenSpaceIsAvailable();
+    }
     this.parkingSpace = this.parkingSpace.filter(car => JSON.stringify(car) !== JSON.stringify(carToUnpark));
   }
 
