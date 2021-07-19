@@ -23,7 +23,7 @@ class Measurement {
 
     return new Measurement(difference, this.unit);
   };
-  
+
 };
 
 module.exports = Measurement;

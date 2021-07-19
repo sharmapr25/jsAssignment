@@ -1,4 +1,6 @@
-class Attendant{
+const Observer = require('./observer');
+
+class Attendant extends Observer{
   constructor(parkingLot){
     this.parkingLot = parkingLot;
   }
