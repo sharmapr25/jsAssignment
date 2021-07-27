@@ -1,11 +1,12 @@
 const Observer = require('./observer');
+const MostAvailable = require('./parking_order/mostAvailable');
 
 class Attendant extends Observer {
   constructor(parkingLots, parkingOrderSelection) {
     super();
     this.parkingLots = parkingLots;
     this.availableLots = parkingLots;
-    this.parkingOrderSelection = parkingOrderSelection;
+    this.parkingOrderSelection = parkingOrderSelection | new MostAvailable();
   }
 
   park(car) {
