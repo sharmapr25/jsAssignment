@@ -2,6 +2,7 @@ const Observer = require('./observer');
 
 class Attendant extends Observer {
   constructor(parkingLots, parkingOrderSelection) {
+    super();
     this.parkingLots = parkingLots;
     this.availableLots = parkingLots;
     this.parkingOrderSelection = parkingOrderSelection;
