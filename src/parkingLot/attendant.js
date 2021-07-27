@@ -7,7 +7,14 @@ class Attendant extends Observer {
   }
 
   park(car) {
-    this.availableLots[0].park(car);
+    const availableLotWithMostFreeSpaces = this.availableLots.reduce((lots, anotherLots) => {
+      if(lots.hasMoreFreeSpace(anotherLots)){
+        return lots;
+      }
+      return anotherLots;
+    })
+
+    availableLotWithMostFreeSpaces.park(car);
   }
 
   unpark(car) {
