@@ -25,8 +25,8 @@ describe('attendant', () => {
   });
 
   it("park parked the car in second parking lot when first parking lot is full", () => {
-    const parkingLot = new ParkingLot(1);
-    const anotherParkingLot = new ParkingLot(2);
+    const parkingLot = new ParkingLot("1", 1);
+    const anotherParkingLot = new ParkingLot("2", 2);
 
     const parkingLots = [parkingLot, anotherParkingLot]
     const mostAvailableOrderSelection = new MostAvailable();
@@ -45,8 +45,8 @@ describe('attendant', () => {
   });
 
     it("park parked the car in second parking lot which has highest number of parking slot available", () => {
-      const parkingLotWithOneSpace = new ParkingLot(1);
-      const parkingLotWithTwoSpaces = new ParkingLot(2);
+      const parkingLotWithOneSpace = new ParkingLot("1", 1);
+      const parkingLotWithTwoSpaces = new ParkingLot("2", 2);
 
       const parkingLots = [parkingLotWithOneSpace, parkingLotWithTwoSpaces];
       const highestFreeSpaceOrderSelection = new HighestFreeSpace();
@@ -60,8 +60,8 @@ describe('attendant', () => {
     });
 
     it("park parked the car in first parking lot which has highest capacity of parking space", () => {
-      const parkingLotWithOneSpace = new ParkingLot(1);
-      const parkingLotWithTwoSpaces = new ParkingLot(2);
+      const parkingLotWithOneSpace = new ParkingLot("1",1);
+      const parkingLotWithTwoSpaces = new ParkingLot("2", 2);
 
       const parkingLots = [parkingLotWithOneSpace, parkingLotWithTwoSpaces];
       const mostCapacityOrderSelection = new MostCapacity();

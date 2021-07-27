@@ -2,7 +2,8 @@ const CarIsAlreadyParkedError = require("./error/carIsAlreadyParkedError");
 const carIsNotParkedError = require("./error/carIsNotParkedError");
 
 class ParkingLot {
-  constructor(parkingSize) {
+  constructor(id=1, parkingSize) {
+    this.id = id;
     this.parkingSize = parkingSize;
     this.parkingSpace = [];
     this.observers = [];
@@ -21,7 +22,7 @@ class ParkingLot {
     }
     if (!this._isSpaceAvailable()) {
       this.observers.forEach((observer) =>
-        observer.notifyWhenSpaceNotAvailable()
+        observer.notifyWhenSpaceNotAvailable(this)
       );
     }
   }
@@ -32,7 +33,7 @@ class ParkingLot {
     }
     if (!this._isSpaceAvailable()) {
       this.observers.forEach((observer) =>
-        observer.notifyWhenSpaceIsAvailable()
+        observer.notifyWhenSpaceIsAvailable(this)
       );
     }
     this.parkingSpace = this.parkingSpace.filter(
@@ -58,9 +59,14 @@ class ParkingLot {
     return this._getAvailableSpace() > anotherParkingLot._getAvailableSpace();
   }
 
-  hasMoreCapacity(anotherParkingLot){
+  hasMoreCapacity(anotherParkingLot) {
     return this.parkingSize > anotherParkingLot.parkingSize;
   }
+
+  isSameId(anotherParkingLot){
+    return this.id === anotherParkingLot.id;
+  }
 };
+
 
 module.exports = ParkingLot;

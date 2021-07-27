@@ -17,7 +17,8 @@ class Attendant extends Observer {
     this.parkingLots.find((parkingLot) => parkingLot.isParked(car)).unpark(car);
   }
 
-  notifyWhenSpaceNotAvailable(parkingLotIndex) {
+  notifyWhenSpaceNotAvailable(parkingLotToRemove) {
+    this.availableLots.filter(parkingLot => !parkingLot.isSameId(parkingLotToRemove))
     this.availableLots.splice(parkingLotIndex, 1);
   }
 
