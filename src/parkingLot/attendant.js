@@ -11,7 +11,6 @@ class Attendant extends Observer {
 
   park(car) {
     const selectedParkingLot = this.parkingOrderSelection.selectedParkingLot(this.availableLots);
-
     selectedParkingLot.park(car);
   }
 
@@ -19,13 +18,19 @@ class Attendant extends Observer {
     this.parkingLots.find((parkingLot) => parkingLot.isParked(car)).unpark(car);
   }
 
-  notifyWhenSpaceNotAvailable(parkingLotToRemove) {
-    this.availableLots.filter(parkingLot => !parkingLot.isSameId(parkingLotToRemove))
+  notifyWhenSpaceNotAvailable(parkingLot) {
+    const parkingLotIndex = this.availableLots.indexOf(parkingLot);
     this.availableLots.splice(parkingLotIndex, 1);
   }
 
   notifyWhenSpaceIsAvailable(parkingLot) {
     this.availableLots.push(parkingLot)
+  }
+
+  static createAttendant(parkingLots, parkingOrderSelection){
+    const attendant = new Attendant(parkingLots, parkingOrderSelection);
+    parkingLots.forEach(parkingLot => parkingLot.addObserver(attendant));
+    return attendant;
   }
 }
 

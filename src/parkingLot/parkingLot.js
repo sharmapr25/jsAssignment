@@ -2,7 +2,7 @@ const CarIsAlreadyParkedError = require("./error/carIsAlreadyParkedError");
 const carIsNotParkedError = require("./error/carIsNotParkedError");
 
 class ParkingLot {
-  constructor(id=1, parkingSize) {
+  constructor(parkingSize, id = 1) {
     this.id = id;
     this.parkingSize = parkingSize;
     this.parkingSpace = [];
@@ -63,7 +63,7 @@ class ParkingLot {
     return this.parkingSize > anotherParkingLot.parkingSize;
   }
 
-  isSameId(anotherParkingLot){
+  isSameId(anotherParkingLot) {
     return this.id === anotherParkingLot.id;
   }
 };

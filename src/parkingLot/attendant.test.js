@@ -25,13 +25,13 @@ describe('attendant', () => {
   });
 
   it("park parked the car in second parking lot when first parking lot is full", () => {
-    const parkingLot = new ParkingLot("1", 1);
-    const anotherParkingLot = new ParkingLot("2", 2);
+    const parkingLotWithOneSpace = new ParkingLot(1, "1");
+    const parkingLotWithTwoSpaces = new ParkingLot(2, "2");
 
-    const parkingLots = [parkingLot, anotherParkingLot]
+    const parkingLots = [parkingLotWithOneSpace, parkingLotWithTwoSpaces]
     const mostAvailableOrderSelection = new MostAvailable();
 
-    const attendant = new Attendant(parkingLots, mostAvailableOrderSelection);
+    const attendant = Attendant.createAttendant(parkingLots, mostAvailableOrderSelection);
 
     const car = { number: 112 };
     const carWithDifferentPlateNumber = { number: 114 };
@@ -39,19 +39,22 @@ describe('attendant', () => {
     attendant.park(car);
     attendant.park(carWithDifferentPlateNumber);
 
-    expect(parkingLot.isParked(car)).toBeTruthy();
-    expect(anotherParkingLot.isParked(carWithDifferentPlateNumber)).toBeTruthy();
+    expect(parkingLotWithOneSpace.isParked(car)).toBeTruthy();
+    expect(parkingLotWithTwoSpaces.isParked(carWithDifferentPlateNumber)).toBeTruthy();
 
   });
 
     it("park parked the car in second parking lot which has highest number of parking slot available", () => {
-      const parkingLotWithOneSpace = new ParkingLot("1", 1);
-      const parkingLotWithTwoSpaces = new ParkingLot("2", 2);
+       const parkingLotWithOneSpace = new ParkingLot(1, "1");
+       const parkingLotWithTwoSpaces = new ParkingLot(2, "2");
 
       const parkingLots = [parkingLotWithOneSpace, parkingLotWithTwoSpaces];
       const highestFreeSpaceOrderSelection = new HighestFreeSpace();
 
-      const attendant = new Attendant(parkingLots, highestFreeSpaceOrderSelection);
+      const attendant = Attendant.createAttendant(
+        parkingLots,
+        highestFreeSpaceOrderSelection
+      );
       const car = { number: 112 };
 
       attendant.park(car);
@@ -60,13 +63,16 @@ describe('attendant', () => {
     });
 
     it("park parked the car in first parking lot which has highest capacity of parking space", () => {
-      const parkingLotWithOneSpace = new ParkingLot("1",1);
-      const parkingLotWithTwoSpaces = new ParkingLot("2", 2);
+       const parkingLotWithOneSpace = new ParkingLot(1, "1");
+       const parkingLotWithTwoSpaces = new ParkingLot(2, "2");
 
       const parkingLots = [parkingLotWithOneSpace, parkingLotWithTwoSpaces];
       const mostCapacityOrderSelection = new MostCapacity();
 
-      const attendant = new Attendant(parkingLots, mostCapacityOrderSelection);
+      const attendant = Attendant.createAttendant(
+        parkingLots,
+        mostCapacityOrderSelection
+      );
 
       const car = { number: 112 };
       const carWithDifferentPlateNumber = { number: 114 };
