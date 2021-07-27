@@ -1,20 +1,15 @@
 const Observer = require('./observer');
 
 class Attendant extends Observer {
-  constructor(parkingLots) {
+  constructor(parkingLots, parkingOrderSelection) {
     this.parkingLots = parkingLots;
     this.availableLots = parkingLots;
+    this.parkingOrderSelection = parkingOrderSelection;
   }
 
   park(car) {
-    const availableLotWithMostFreeSpaces = this.availableLots.reduce((lots, anotherLots) => {
-      if(lots.hasMoreFreeSpace(anotherLots)){
-        return lots;
-      }
-      return anotherLots;
-    })
-
-    availableLotWithMostFreeSpaces.park(car);
+    const selectedParkingLot = this.parkingOrderSelection(this.availableLots);
+    selectedParkingLot.park(car);
   }
 
   unpark(car) {

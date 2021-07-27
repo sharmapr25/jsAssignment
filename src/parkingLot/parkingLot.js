@@ -50,12 +50,16 @@ class ParkingLot {
     return this.parkingSize > this.parkingSpace.length;
   }
 
-  _getAvailableSpace(){
+  _getAvailableSpace() {
     return this.parkingSize - this.parkingSpace.length;
   }
 
   hasMoreFreeSpace(anotherParkingLot) {
     return this._getAvailableSpace() > anotherParkingLot._getAvailableSpace();
+  }
+
+  hasMoreCapacity(anotherParkingLot){
+    return this.parkingSize > anotherParkingLot.parkingSize;
   }
 };
 
