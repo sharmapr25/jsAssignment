@@ -6,7 +6,7 @@ class Attendant extends Observer {
     super();
     this.parkingLots = parkingLots;
     this.availableLots = parkingLots;
-    this.parkingOrderSelection = parkingOrderSelection | new MostAvailable();
+    this.parkingOrderSelection = parkingOrderSelection || new MostAvailable();
   }
 
   park(car) {
