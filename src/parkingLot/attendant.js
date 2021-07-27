@@ -8,7 +8,8 @@ class Attendant extends Observer {
   }
 
   park(car) {
-    const selectedParkingLot = this.parkingOrderSelection(this.availableLots);
+    const selectedParkingLot = this.parkingOrderSelection.selectedParkingLot(this.availableLots);
+
     selectedParkingLot.park(car);
   }
 

@@ -1,6 +1,9 @@
 const ParkingLot = require("./parkingLot");
 const Attendant = require('./attendant');
-const parkingOrderSelection = require("./parkingOrderSelection");
+const HighestFreeSpace = require('./parking_order/highestFreeSpace');
+const MostCapacity = require("./parking_order/mostCapacity");
+const MostAvailable = require("./parking_order/mostAvailable");
+
 
 describe('attendant', () => {
   it('park parked the car when space is available', () => {
@@ -24,8 +27,12 @@ describe('attendant', () => {
   it("park parked the car in second parking lot when first parking lot is full", () => {
     const parkingLot = new ParkingLot(1);
     const anotherParkingLot = new ParkingLot(2);
+
     const parkingLots = [parkingLot, anotherParkingLot]
-    const attendant = new Attendant(parkingLots, parkingOrderSelection.MOST_AVAILABLE);
+    const mostAvailableOrderSelection = new MostAvailable();
+
+    const attendant = new Attendant(parkingLots, mostAvailableOrderSelection);
+
     const car = { number: 112 };
     const carWithDifferentPlateNumber = { number: 114 };
 
@@ -40,8 +47,11 @@ describe('attendant', () => {
     it("park parked the car in second parking lot which has highest number of parking slot available", () => {
       const parkingLotWithOneSpace = new ParkingLot(1);
       const parkingLotWithTwoSpaces = new ParkingLot(2);
+
       const parkingLots = [parkingLotWithOneSpace, parkingLotWithTwoSpaces];
-      const attendant = new Attendant(parkingLots, parkingOrderSelection.HIGHEST_FREE_SPACE);
+      const highestFreeSpaceOrderSelection = new HighestFreeSpace();
+
+      const attendant = new Attendant(parkingLots, highestFreeSpaceOrderSelection);
       const car = { number: 112 };
 
       attendant.park(car);
@@ -54,7 +64,9 @@ describe('attendant', () => {
       const parkingLotWithTwoSpaces = new ParkingLot(2);
 
       const parkingLots = [parkingLotWithOneSpace, parkingLotWithTwoSpaces];
-      const attendant = new Attendant(parkingLots, parkingOrderSelection.MOST_CAPACITY);
+      const mostCapacityOrderSelection = new MostCapacity();
+
+      const attendant = new Attendant(parkingLots, mostCapacityOrderSelection);
 
       const car = { number: 112 };
       const carWithDifferentPlateNumber = { number: 114 };
